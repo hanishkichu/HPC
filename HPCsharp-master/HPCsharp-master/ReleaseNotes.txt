@@ -1,0 +1,184 @@
+Version 3.8.0
+Improved the interface on Radix Sort which uses an array of keys and items to be more of functional-style, returning a tuple of sorted arrays of keys and items.
+Implemented Parallel Merge Sort that Rick requested, which uses arrays of keys and items (each of generic type).
+Reduced the amount of code for .Sum() implementations by using the new Divide-and-Conquer generic functions in many more cases. Blog on usage: https://duvanenko.tech.blog/2019/12/25/parallel-divide-and-conquer-abstraction-in-c/
+
+Version 3.7.2
+Added divide-and-conquer generic function abstraction: serial and parallel versions, which makes parallel programming simpler.
+It's used inside HPCsharp. Blog on usage: https://duvanenko.tech.blog/2019/12/25/parallel-divide-and-conquer-abstraction-in-c/
+
+Version 3.7.1
+25X even faster ulong[].Sum, which produces a perfectly accurate result without causing overflow, by producing a BigInteger result,
+which uses a newly developed algorithm using integer arithmetic internally and only converts the final result to BigInteger.
+Associated blog https://duvanenko.tech.blog/2019/07/20/checked-data-parallel-arithmetic-in-c/
+
+Version 3.7.0
+25X even faster ulong[].Sum, which produces a perfectly accurate result without causing overflow, by producing a Decimal result,
+which only uses integer arithmetic internally and only converts the final result to Decimal. Associated blog https://duvanenko.tech.blog/2019/07/20/checked-data-parallel-arithmetic-in-c/
+
+Version 3.6.0
+Additional parallel Copy() methods and their re-organization, with a change of its namespace, and in many of its interfaces.
+Examples have been added to show how parallel Copy() interfaces
+are the same as C# List.ToArray() and Array.ToArray() as well as List.CopyTo(Array) and Array.CopyTo(Array).
+Performance benefits explained in https://duvanenko.tech.blog/2019/08/19/faster-copying-in-c/
+
+Version 3.5.4
+Added long[] checked .Sum() SSE single and multi-core to Decimal and BigInteger which performs well (https://duvanenko.tech.blog/2019/07/20/checked-data-parallel-arithmetic-in-c/).
+Added more parallel copy functions, and explained benefits and benchmarks in the Readme.
+
+Version 3.5.3
+Fixed bug in ulong[] Sum to BigInteger and to Decimal SSE Faster algorithm, found with extensive randomized testing. Simplified implementation of both algorithms.
+
+Version 3.5.2
+Implemented ulong[] Sum to decimal using ulong accumulator and detecting overflow without using exceptions in scalar, SSE and multi-core.
+Implemented ulong[] Sum to BigIntger with same features as above. Both of these run near memory bandwidth speeds, and way faster than Linq Sum.
+Updated examples to demonstrate usage of these new Sum functions.
+
+Version 3.5.1
+Added BigInteger[] array Sum(): single and multi-core.
+Moved Add() of two arrays into its own namespace.
+Added AddTo() for int[] and uint[]: single, SSE and multi-core, which is 70% faster than Add().
+Added a few simple/quick unit tests.
+
+Version 3.5.0
+Changed Sum function names to be more consistent and clear of intent.
+Added overflow checking for Sum of long[] and ulong[].
+Added overflow checking for SSE ulong[] Sum.
+Added faster Sum of long[] and ulong[] to Decimal and BigInteger that doesn't use overflow exceptions.
+Added SSE Sum of ulong[] that will throw overflow in SSE portion.
+Simplified and clarified usage examples.
+
+Version 3.4.3
+Much improved project Readme, with sections for each type of algorithm, and table listing all available algorithms.
+All 157 .Sum() functions have been documented, pointing out unique benefits of each, such as higher accuracy and performance, SSE, and multi-core.
+Fixed the examples project to work with the latest version. Added two more .Sum() functions.
+
+Version 3.4.2
+Added zero detection of byte array: scalar and highly optimized SSE. Implemented .Sum() of a section of an array.
+Added documentation for many .Sum() functions. Added algorithm list/table to the project Readme, showing all functions implemented.
+
+Version 3.4.1
+Implemented scaler version of pairwise .Sum() for float[] and double[] for more accurate summation without doing extra work.
+Implemented a generic divide-and-conquer parallel function, applicable in many cases.
+
+Version 3.4.0
+Neumaier .Sum() SIMD/SSE and multi-core for float[] and double[], with float[] providing a choice of float accumulator/result or double
+
+Version 3.3.12
+Added multi-core .Sum() Neumaier more accurate summation algorithm for float[] and double[]
+
+Version 3.3.11
+Added multi-core .Sum() for long[] and ulong[] which use and return a decimal accumulator to avoid throwing an overflow exception
+
+Version 3.3.10
+Added .Sum() SSE and multi-core implementations for all numeric data types (ludicrous speed!)
+Added .Sum() for long[] and ulong[] which use and return a decimal accumulator to avoid throwing an overflow exception
+
+Version 3.3.9
+Fixed SortRadixMsd() of Double[]
+
+Version 3.3.8
+Warning! SortRadixMsd() of Double[] has a bug, producing incorrectly sorted results. Working on a fix.
+Added in-place Radix Sort of Int32[] and Float[]
+Added byte array sort which outputs sorted indexes: ascending or descending.
+Improved performance of LSD Radix Sort of User Defined Type Arrays
+
+Version 3.3.7
+Fixed a bug with .Fill() - thanks David
+Added a version of LSD Radix Sort that detects pre-sorted and mostly pre-sorted, and improves performance for constant filled arrays
+Improved parallel MSD Radix Sort, but no performance gain yet
+Added .Sum() for long[]: serial, SSE and multi-core
+Added .Add() for int[]: SSE
+
+Version 3.3.6
+Added John's copy avoidance suggestion for the functional interface LSD Radix Sort
+Added SIMD/SSE and multi-core .Min() for int[]
+
+Version 3.3.5
+Improved performance of MSD Radix Sort for double arrays by > 10%
+
+Version 3.3.4
+Improved performance of MSD Radix Sort for long arrays by 5-10%
+
+Version 3.3.3
+Fixed a bug with .Sum() SSE and multi-core implementation for int and uint arrays
+Fixed inner recursive function of MSD Radix Sort calling the wrong function when recursing
+
+Version 3.3.2
+Implemented N-bit/digit MSD Radix Sort
+Improved recursion termination performance of MSD Radix Sort for long arrays to match C++ implementation from my Dr. Dobb's Journal article
+
+Version 3.3.1
+Added .Sum() implementations of Kahan and Neumaier floating-point summation algorithms for higher accuracy
+
+Version 3.3.0
+Implemented parallel Histogram of byte components.
+Made mask a constant for LSD Radix Sort, which improved performance slightly.
+Added much improved .Sum() for arrays, which does not overflow as the standard C#/Linq implementation does.
+Implemented SSE and multi-core versions of .Sum() for increadible performance gain.
+
+Version 3.2.5
+Added LSD Radix Sort for signed long arrays (serial and parallel)
+Added Histogram (serial and parallel) for signed long arrays
+Added Parallel MSD Radix Sort (in-place), but it's not yet faster, needing further optimizations
+
+Version 3.2.4
+Improved performance of limited range random slong arrays and constant arrays, using an idea that John and I had.
+
+Version 3.2.3
+Fixed MSD Radix Sort correctness for long and double arrays, when negative values were used
+
+Version 3.2.2
+Fixed Radix Sort MSD naming inconsistencies
+
+Version 3.2.1
+Added in-place MSD Radix Sort implementations. Most are ports from my Dr. Dobb's Journal articles.
+Added in-place MSD Radix Sort of double array, which is not from my articles.
+MSD Radix Sort sbyte, byte, short, and ushort use Counting Sort, since it's in-place and is way faster.
+Provided in-place interface and functional interface for convenience in Functional usages, which returns the input array, but sorted.
+
+Version 3.2.0
+Added ludicrous speed Parallel Counting Sort for arrays of byte and ushort, which is in-place.
+Added ludicrous speed Parallel Radix Sort (LSD and MSD) for arrays of byte and ushort, which are in-place.
+Added Counting Sort for arrays of signed types: sbyte and short, which is in-place.
+Added Radix Sort (LSD and MSD) for arrays of signed types: sbyte and short, which are in-place.
+Histogram of components/bytes/digits within UInt32
+Implemented parallel Histogram functions, which sped up well
+Ported three Block Swap algorithms from C++ to C#, which swap neighboring blocks within an array of unequal size in-place.
+Eliminate a copy at the end of LSD Radix Sort (thank you John for the suggestion)
+
+Version 3.1.3
+Added a crazy fast Counting Sort for arrays of byte and ushort (in-place and not)
+Added Array.Fill for full and partial arrays, which sets an array to a value
+
+Version 3.1.2
+Improved performance of serial Radix Sort by 17%.
+
+Version 3.1.1
+Improved parallel Radix Sort performance by 15%, but still slower than the serial version.
+
+Version 3.1.0
+
+Found and fixed more stability issues with Stable Parallel Merge Sort.
+Found stability issues with Linq.AsParallel() usage.
+Added IEqualityComparer to SequenceEqual to support equality comparison of arrays and List of user defined classes
+Added Lambda function for SequenceEqual (parallel versions only)
+
+Version 3.0.3
+
+Fixed Stability of Stable Parallel Merge Sort. Serial Merge Sort is already stable.
+
+Version 3.0.2
+
+Fixed Merge Sort of user defined classes (data types). Examples of usage and benchmarks coming soon.
+Implemented Serial Merge Sort of List.
+
+Version 3.0.1
+
+Higher performance parallel and serial 2-way Merge, with parallel faster by 1.7%.
+Added a Stable Parallel Merge Sort. Current Serial Merge Sort is already stable.
+Tuned Parallel Merge Sort performance for 5-10% gain.
+In-place Merge Sort interfaces for arrays and lists.
+Parallel and serial Multi-Merge.
+Changed interfaces on Merge Sort and Merge to be consistent with Microsoft C# algorithms.
+Added Dynamic Priority Queue and Fixed Size Priority Queue.
